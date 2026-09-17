@@ -1,0 +1,83 @@
+Artificial Intelligence • Rational Agent (PEAS)
+Weather-Based Activity Agent
+An intelligent decision-making agent that perceives weather conditions, calculates safety & thermal comfort, and recommends optimal indoor or outdoor activities.
+
+⚡ Quick Test Scenarios:
+☀️ Pleasant Sunny (24°C) ☁️ Overcast Mild (20°C) 🌧️ Rainy Day (18°C) ⛈️ Thunderstorm (27°C) 🔥 Heatwave (41°C) ❄️ Cold & Windy (5°C)
+🎛️
+Sensory Inputs (Percepts)
+Enter weather observations manually
+
+🌡️ Temperature (°C) 
+e.g. 24.5
+ Range: -50°C to 60°C
+🌤️ Weather Condition 
+☀️ Sunny (Clear sky)
+ Primary atmospheric state
+💧 Relative Humidity (%)
+e.g. 50
+Moisture level in the air (0 - 100%)
+💨 Wind Speed (km/h) 
+e.g. 12
+ Atmospheric wind velocity (>45 km/h is gale force)
+Evaluate Weather & Recommend →
+⚠️ Please check inputs:
+{% if errors %} {% for err in errors %}
+{{ err }}
+{% endfor %} {% endif %}
+🤖
+Agent Decision & Recommendations
+Rational output based on safety & comfort rules
+
+🧭
+Agent Waiting for Input
+Enter weather values or pick a quick preset above to watch the Rational Agent evaluate the conditions.
+
+{{ decision.summary_badge if decision else 'Outdoor Recommended' }}
+{{ decision.classification if decision else 'Outdoor Favored' }}
+🧠
+Rational Agent Justification
+{{ decision.explanation if decision else '' }}
+
+Sensory Rule Trace:
+{% if decision and decision.reasons %} {% for r in decision.reasons %}
+{{ r }}
+{% endfor %} {% endif %}
+⚠️ Agent Safety Advisory:
+{% if decision and decision.caution_notes %} {% for c in decision.caution_notes %}
+{{ c }}
+{% endfor %} {% endif %}
+🌟 Top Priority Activities
+{% if decision and decision.primary_activities %} {% for act in decision.primary_activities %}
+{{ act.icon }}
+{{ act.name }}
+{{ act.desc }}
+
+{% endfor %} {% endif %}
+🌳 Outdoor Options
+{% if decision and decision.outdoor_suggestions %} {% for act in decision.outdoor_suggestions %}
+{{ act.icon }}
+{{ act.name }} {{ act.desc }}
+{% endfor %} {% endif %}
+🏠 Indoor Options
+{% if decision and decision.indoor_suggestions %} {% for act in decision.indoor_suggestions %}
+{{ act.icon }}
+{{ act.name }} {{ act.desc }}
+{% endfor %} {% endif %}
+📚 AI Rational Agent Framework (Russell & Norvig - PEAS)
+CSE AIML Curriculum Concept
+P
+Performance Measure
+User physical safety, thermal comfort index, and activity feasibility.
+
+E
+Environment
+Meteorological atmospheric conditions (outdoor vs sheltered spaces).
+
+A
+Actuators
+Classification (Indoor/Outdoor), curated activity lists, safety warnings, and logical explanations.
+
+S
+Sensors
+Sensory inputs: Temperature, Weather Condition, Humidity %, Wind Speed.
